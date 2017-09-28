@@ -1,0 +1,22 @@
+{
+  "name": "codescrapper",
+  "version": "1.0.0",
+  "description": "A desktop app for Linux, Windows and Mac to download code from competitive programming websites.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strcoder4007/codeScrapper.git"
+  },
+  "author": "Shubham Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/strcoder4007/codeScrapper/issues"
+  },
+  "homepage": "https://github.com/strcoder4007/codeScrapper#readme",
+  "dependencies": {
+    "electron": "^1.7.8"
+  }
+}
