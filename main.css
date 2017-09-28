@@ -4,7 +4,11 @@ body {
     -webkit-app-region:drag;
 }
 .header {
-    height: 40px;
+    font-size: 37px !important;
+}
+
+.icons8-Horizontal-Line {
+    margin-top: 27px;
 }
 
 input[type="submit"],
