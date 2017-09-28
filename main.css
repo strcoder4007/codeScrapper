@@ -1,10 +1,14 @@
 body {
     background-color: #222 !important;
+}
+.dragable{
     -ms-overflow-style: scrollbar;
     -webkit-app-region:drag;
 }
 .header {
     font-size: 37px !important;
+    font-family: Roboto;
+    font-weight: bold;
 }
 
 .icons8-Horizontal-Line {
