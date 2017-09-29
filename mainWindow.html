@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>CodeScrapper</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
+
 <body>
     <div class="row">
         <div class="col s11 white-text dragable">
@@ -23,13 +26,27 @@
     </div>
     <div class="row">
         <div class="col s6">
-                <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Choose Source</a>
-                  <ul id='dropdown1' class='dropdown-content'>
-                    <li><span>Codeforces</span></li>
-                    <li><span>SPOJ</span></li>
-                  </ul>
+            <br>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Choose Source</a>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li onclick="codeforces()"><span>Codeforces</span></li>
+                <li onclick="spoj()"><span>SPOJ</span></li>
+            </ul>
         </div>
-        <div class="col s6"></div>
+        <div class="col s6">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name white" type="text" class="validate white-text">
+                        <label for="first_name">Username</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="password" type="password" class="validate white-text">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -39,4 +56,5 @@
     </script>
 
 </body>
+
 </html>
