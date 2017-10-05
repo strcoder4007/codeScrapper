@@ -17,6 +17,7 @@ body {
 
 .icon {
     margin-top: 5px;
+    cursor: pointer;
 }
 
 input[type="submit"],
