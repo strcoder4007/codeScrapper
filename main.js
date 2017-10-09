@@ -45,12 +45,18 @@ ipcMain.on('async', (event, arg) => {
     let username = arg;
     const request = net.request('http://codeforces.com/api/user.status?handle='+username)
     request.on('response', (response) => {
+        var myData = '';
     response.on('data', (chunk) => {
-        console.log(chunk);
-        //console.log(`BODY: ${chunk}`)
+        myData += chunk;
     })
     response.on('end', () => {
-        console.log('No more data in response.')
+        var parsed = JSON.parse(myData).result;
+        for(let i = 0; i < parsed.length; i++) {
+            if(parsed[i].verdict == "OK")
+                console.log(parsed[i].contestId);
+            //download the files
+        }
+        //console.log(parsed[0].verdict);
     })
     })
     request.end()
