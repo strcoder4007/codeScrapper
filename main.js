@@ -1,8 +1,9 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const {net} = require('electron')
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain } = electron;
 
 let mainWindow;
 
@@ -17,4 +18,40 @@ app.on('ready', function(){
         slashes: true
     }));
     mainWindow.center();
+    
+    
+    /*
+    const {net} = require('electron')
+    const request = net.request('http://codeforces.com/api/user.status?handle='+username)
+    request.on('response', (response) => {
+      console.log(`STATUS: ${response.statusCode}`)
+      console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
+      response.on('data', (chunk) => {
+        console.log(`BODY: ${chunk}`)
+      })
+      response.on('end', () => {
+        console.log('No more data in response.')
+      })
+    })
+    request.end()
+    */
+    
+
+
+});
+
+
+ipcMain.on('async', (event, arg) => {
+    let username = arg;
+    const request = net.request('http://codeforces.com/api/user.status?handle='+username)
+    request.on('response', (response) => {
+    response.on('data', (chunk) => {
+        console.log(chunk);
+        //console.log(`BODY: ${chunk}`)
+    })
+    response.on('end', () => {
+        console.log('No more data in response.')
+    })
+    })
+    request.end()
 });
