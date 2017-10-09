@@ -18,46 +18,31 @@ app.on('ready', function(){
         slashes: true
     }));
     mainWindow.center();
-    
-    
-    /*
-    const {net} = require('electron')
-    const request = net.request('http://codeforces.com/api/user.status?handle='+username)
-    request.on('response', (response) => {
-      console.log(`STATUS: ${response.statusCode}`)
-      console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
-      response.on('data', (chunk) => {
-        console.log(`BODY: ${chunk}`)
-      })
-      response.on('end', () => {
-        console.log('No more data in response.')
-      })
-    })
-    request.end()
-    */
-    
-
-
 });
 
 
-ipcMain.on('async', (event, arg) => {
-    let username = arg;
-    const request = net.request('http://codeforces.com/api/user.status?handle='+username)
-    request.on('response', (response) => {
-        var myData = '';
-    response.on('data', (chunk) => {
-        myData += chunk;
-    })
-    response.on('end', () => {
-        var parsed = JSON.parse(myData).result;
-        for(let i = 0; i < parsed.length; i++) {
-            if(parsed[i].verdict == "OK")
-                console.log(parsed[i].contestId);
-            //download the files
-        }
-        //console.log(parsed[0].verdict);
-    })
-    })
-    request.end()
+ipcMain.on('getData', (event, arg, selected) => {
+    if(selected == "codeforces") {
+        let username = arg;
+        const request = net.request('http://codeforces.com/api/user.status?handle='+username)
+        request.on('response', (response) => {
+            var myData = '';
+        response.on('data', (chunk) => {
+            myData += chunk;
+        })
+        response.on('end', () => {
+            var parsed = JSON.parse(myData).result;
+            for(let i = 0; i < parsed.length; i++) {
+                if(parsed[i].verdict == "OK")
+                    console.log("Accepted " + parsed[i].contestId);
+                //download the files
+            }
+        })
+        })
+        request.end()
+    }
+    else if(selected == "none"){
+        alert("none");
+    }
+
 });

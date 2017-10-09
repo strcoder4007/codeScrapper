@@ -22,7 +22,7 @@
     <div class="row options">
         <div class="col s6">
             <br>
-            <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Choose Source</a>
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1' id="source">Choose Source</a>
             <ul id='dropdown1' class='dropdown-content'>
                 <li onclick="codeforces()"><span>Codeforces</span></li>
                 <li onclick="spoj()"><span>SPOJ</span></li>
@@ -57,16 +57,27 @@
 
         var {ipcRenderer, remote} = require('electron');  
         var main = remote.require("./main.js");
+
         
+        var selected = "none";
+
         function download(){
             let username = document.getElementById('username').value;
-            ipcRenderer.send('async', username);
-}
+            ipcRenderer.send('getData', username, selected);
+        }
 
         function closeWindow() {
             this.close();
         }
 
+        function codeforces() {
+            document.getElementById("source").innerHTML = "Codeforces";
+            selected = "codeforces";
+        }
+        function spoj() {
+            document.getElementById("source").innerHTML = "SPOJ";
+            selected = "spoj";
+        }
     </script>
 
 </body>
