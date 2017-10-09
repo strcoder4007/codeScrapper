@@ -33,16 +33,17 @@ ipcMain.on('getData', (event, arg, selected) => {
         response.on('end', () => {
             var parsed = JSON.parse(myData).result;
             for(let i = 0; i < parsed.length; i++) {
-                if(parsed[i].verdict == "OK")
-                    console.log("Accepted " + parsed[i].contestId);
-                //download the files
+                if(parsed[i].verdict == "OK") {
+                    let fileUrl = "http://codeforces.com/contest/"+parsed[i].id+"/submission/"+parsed[i].contestId;
+                    console.log(fileUrl);
+                }
             }
         })
         })
         request.end()
     }
     else if(selected == "none"){
-        alert("none");
+        console.log("none");
     }
 
 });
