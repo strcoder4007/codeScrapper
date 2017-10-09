@@ -3,6 +3,9 @@ const url = require('url');
 const path = require('path');
 const {net} = require('electron')
 
+const fs = require('fs');
+const download = require('download');
+
 const { app, BrowserWindow, ipcMain } = electron;
 
 let mainWindow;
@@ -32,10 +35,18 @@ ipcMain.on('getData', (event, arg, selected) => {
         })
         response.on('end', () => {
             var parsed = JSON.parse(myData).result;
-            for(let i = 0; i < parsed.length; i++) {
+            for(let i = 0; i < parsed.length; i++) {//parsed.length
                 if(parsed[i].verdict == "OK") {
-                    let fileUrl = "http://codeforces.com/contest/"+parsed[i].id+"/submission/"+parsed[i].contestId;
-                    console.log(fileUrl);
+                    let fileUrl = "http://codeforces.com/contest/"+parsed[i].contestId+"/submission/"+parsed[i].id;
+                    download(fileUrl).then(data => {
+                        let data = data.toString('utf8');
+                        let startIdx = data.search('style="padding: 0.5em;">')+24;
+                        data = data.substr(startIdx, data.length);
+                        let endIdx = data.search('</pre>');
+                        data = data.substr(0, endIdx);
+
+                        fs.writeFileSync('junk/'+parsed[i].contestId+parsed[i].problem.index+'.cpp', data);
+                    });
                 }
             }
         })
@@ -43,7 +54,7 @@ ipcMain.on('getData', (event, arg, selected) => {
         request.end()
     }
     else if(selected == "none"){
-        console.log("none");
+        console.log("choose a website");
     }
 
 });
