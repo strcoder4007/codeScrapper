@@ -23,7 +23,6 @@ app.on('ready', function(){
     mainWindow.center();
 });
 
-
 ipcMain.on('getData', (event, arg, selected) => {
     if(selected == "codeforces") {
         let username = arg;
@@ -39,11 +38,11 @@ ipcMain.on('getData', (event, arg, selected) => {
                 if(parsed[i].verdict == "OK") {
                     let fileUrl = "http://codeforces.com/contest/"+parsed[i].contestId+"/submission/"+parsed[i].id;
                     download(fileUrl).then(data => {
-                        let data = data.toString('utf8');
+                        data = data.toString('utf8');
                         let startIdx = data.search('style="padding: 0.5em;">')+24;
                         data = data.substr(startIdx, data.length);
                         let endIdx = data.search('</pre>');
-                        data = data.substr(0, endIdx);
+                        data = `<p>`+data.substr(0, endIdx)+`</p>`;
 
                         fs.writeFileSync('junk/'+parsed[i].contestId+parsed[i].problem.index+'.cpp', data);
                     });
